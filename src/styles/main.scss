@@ -1,0 +1,43 @@
+@import 'include/anim.scss';
+@import 'include/flex.scss';
+@import 'include/grid.scss';
+@import 'include/math.scss';
+@import 'include/typo.scss';
+@import 'include/vars.scss';
+@import 'include/mixin.scss';
+@import 'include/media.scss';
+@import 'include/theme.scss';
+@import 'common/base.scss';
+@import 'common/form.scss';
+@import 'common/typo.scss';
+@import 'common/text.scss';
+@import 'common/anim.scss';
+
+
+/* ==========================================================================
+   Application
+   ========================================================================== */
+
+#app {
+	@include position(fixed, 0);
+	@include flex-box;
+	@include flex-col(start, stretch);
+}
+
+/* ==========================================================================
+   Loader
+   ========================================================================== */
+
+.main-loader {
+
+	@include transition-property(default, opacity);
+	@include transition-duration(fast);
+	@include transition-equation(fast);
+	@include transition-delay(fast, 2);
+
+	background: var(--color-gray-200);
+
+	.loaded & {
+		@include hidden;
+	}
+}

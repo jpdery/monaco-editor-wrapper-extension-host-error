@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Theme
+   ========================================================================== */
+
+/*
+
+   Rules for Colors
+   https://tintsshades.netlify.app/
+
+   100: Light @ 80%
+   200: Light @ 40%
+   300: Light @ 10%
+
+   400: Base Color
+
+   500: Dark @ 10%
+   600: Dark @ 25%
+   700: Dark @ 50%
+
+   Gray 900: 215, 21, 22
+   Gray 800: 215, 18, 34
+   Gray 700: 215, 12, 59
+
+*/
+
+/* Gray */
+
+// $color-gray-100: #FFFFFF;
+// $color-gray-200: #F4F7FB;
+// $color-gray-300: #EFF2F6;
+// $color-gray-400: #E3E7EC;
+// $color-gray-500: #CFD4DA;
+// $color-gray-600: #B0B5BD;
+// $color-gray-700: #838A94;
+// $color-gray-800: #49525E;
+// $color-gray-900: #06101D;
+
+$color-gray-100: #FFFFFF;
+$color-gray-200: #F4F7FB;
+$color-gray-300: #EBEFF4;
+$color-gray-400: #DBE0E6;
+$color-gray-500: #C1C8D1;
+$color-gray-600: #9DA6B3;
+$color-gray-700: #6E7B8C;
+$color-gray-800: #36465B;
+$color-gray-900: #000A22;
+
+/* Text Color */
+
+$color-text-300: #82888C;
+$color-text-400: #535759;
+$color-text-500: #2F3233;
+
+/* Dark Grey */
+
+// $color-dark-100: #17181a;
+// $color-dark-200: #1e1f21;
+// $color-dark-300: #252729;
+// $color-dark-400: #292b2e;
+// $color-dark-500: #2d3033;
+// $color-dark-600: #323538;
+// $color-dark-700: #363a3d;
+// $color-dark-800: #969799;
+// $color-dark-900: #dbdddf;
+
+
+$color-dark-100: #17181A;
+$color-dark-200: #1E1F21;
+$color-dark-300: #252729;
+$color-dark-400: #333436;
+$color-dark-500: #484A4C;
+$color-dark-600: #686A6D;
+$color-dark-700: #94969A;
+$color-dark-800: #D0D2D8;
+$color-dark-900: #FFF;
+
+
+/* Red */
+
+$color-red-100: #fcdfdf;
+$color-red-200: #f69e9e;
+$color-red-300: #f26d6d;
+$color-red-400: #f05d5d;
+$color-red-500: #d85454;
+$color-red-600: #903838;
+$color-red-700: #301313;
+
+/* Green */
+
+$color-green-100: #d4f5e3;
+$color-green-200: #7fe0aa;
+$color-green-300: #3ed180;
+$color-green-400: #29cc72;
+$color-green-500: #25b867;
+$color-green-600: #197a44;
+$color-green-700: #082917;
+
+/* Blue */
+
+$color-blue-100: #FFF;
+$color-blue-200: #B6D8FF;
+$color-blue-300: #72AEFF;
+$color-blue-400: #006FFF;
+$color-blue-500: #004EF0;
+$color-blue-600: #0027B5;
+$color-blue-700: #000079;
+$color-blue-800: #000030;
+$color-blue-900: #000;
+
+/* Purple */
+
+$color-purple-100: #AA88A6;
+$color-purple-200: #AB76A3;
+$color-purple-300: #AB64A1;
+$color-purple-400: #AC529E;
+$color-purple-500: #843F79;
+$color-purple-600: #5B2C55;
+$color-purple-700: #331930;
+
+/* Orange */
+
+$color-orange-100: #FFDCCC;
+$color-orange-200: #FFBFA0;
+$color-orange-300: #FFA173;
+$color-orange-400: #FF8447;
+$color-orange-500: #BB6134;
+$color-orange-600: #773D21;
+$color-orange-700: #331A0E;
+
+/* Yellow */
+
+$color-yellow-100: #FFF0CC;
+$color-yellow-200: #FFE49C;
+$color-yellow-300: #FFD86B;
+$color-yellow-400: #FFCC3B;
+$color-yellow-500: #BB952B;
+$color-yellow-600: #775F1C;
+$color-yellow-700: #33280C;

@@ -1,0 +1,400 @@
+
+/* ==========================================================================
+   Variables
+   ========================================================================== */
+
+:root {
+
+	/* Text */
+
+
+	--color-text-300: #{$color-text-300};
+	--color-text-400: #{$color-text-400};
+	--color-text-500: #{$color-text-500};
+
+	/* Gray */
+
+	--color-gray-100: #{$color-gray-100};
+	--color-gray-200: #{$color-gray-200};
+	--color-gray-300: #{$color-gray-300};
+	--color-gray-400: #{$color-gray-400};
+	--color-gray-500: #{$color-gray-500};
+	--color-gray-600: #{$color-gray-600};
+	--color-gray-700: #{$color-gray-700};
+	--color-gray-800: #{$color-gray-800};
+	--color-gray-900: #{$color-gray-900};
+
+	/* Red */
+
+	--color-red-100: #{$color-red-100};
+	--color-red-200: #{$color-red-200};
+	--color-red-300: #{$color-red-300};
+	--color-red-400: #{$color-red-400};
+	--color-red-500: #{$color-red-500};
+	--color-red-600: #{$color-red-600};
+	--color-red-700: #{$color-red-700};
+
+	/* Green */
+
+	--color-green-100: #{$color-green-100};
+	--color-green-200: #{$color-green-200};
+	--color-green-300: #{$color-green-300};
+	--color-green-400: #{$color-green-400};
+	--color-green-500: #{$color-green-500};
+	--color-green-600: #{$color-green-600};
+	--color-green-700: #{$color-green-700};
+
+	/* Blue */
+
+	--color-blue-100: #{$color-blue-100};
+	--color-blue-200: #{$color-blue-200};
+	--color-blue-300: #{$color-blue-300};
+	--color-blue-400: #{$color-blue-400};
+	--color-blue-500: #{$color-blue-500};
+	--color-blue-600: #{$color-blue-600};
+	--color-blue-700: #{$color-blue-700};
+
+	/* Purple */
+
+	--color-purple-100: #{$color-purple-100};
+	--color-purple-200: #{$color-purple-200};
+	--color-purple-300: #{$color-purple-300};
+	--color-purple-400: #{$color-purple-400};
+	--color-purple-500: #{$color-purple-500};
+	--color-purple-600: #{$color-purple-600};
+	--color-purple-700: #{$color-purple-700};
+
+	/* Orange */
+
+	--color-orange-100: #{$color-orange-100};
+	--color-orange-200: #{$color-orange-200};
+	--color-orange-300: #{$color-orange-300};
+	--color-orange-400: #{$color-orange-400};
+	--color-orange-500: #{$color-orange-500};
+	--color-orange-600: #{$color-orange-600};
+	--color-orange-700: #{$color-orange-700};
+
+	/* Yellow */
+
+	--color-yellow-100: #{$color-yellow-100};
+	--color-yellow-200: #{$color-yellow-200};
+	--color-yellow-300: #{$color-yellow-300};
+	--color-yellow-400: #{$color-yellow-400};
+	--color-yellow-500: #{$color-yellow-500};
+	--color-yellow-600: #{$color-yellow-600};
+	--color-yellow-700: #{$color-yellow-700};
+
+	/* Typed Colors */
+
+	--color-main: var(--color-blue-400);
+	--success: var(--color-blue-400);
+	--color-warn: var(--color-red-400);
+
+	/* Primary */
+
+	--color-main-100: var(--color-blue-100);
+	--color-main-200: var(--color-blue-200);
+	--color-main-300: var(--color-blue-300);
+	--color-main-400: var(--color-blue-400);
+	--color-main-500: var(--color-blue-500);
+	--color-main-600: var(--color-blue-600);
+	--color-main-700: var(--color-blue-700);
+
+	/* Success */
+
+	--success-100: var(--color-blue-100);
+	--success-200: var(--color-blue-200);
+	--success-300: var(--color-blue-300);
+	--success-400: var(--color-blue-400);
+	--success-500: var(--color-blue-500);
+	--success-600: var(--color-blue-600);
+	--success-700: var(--color-blue-700);
+
+	/* Warning */
+
+	--color-warn-100: var(--color-red-100);
+	--color-warn-200: var(--color-red-200);
+	--color-warn-300: var(--color-red-300);
+	--color-warn-400: var(--color-red-400);
+	--color-warn-500: var(--color-red-500);
+	--color-warn-600: var(--color-red-600);
+	--color-warn-700: var(--color-red-700);
+
+	/* Icon */
+
+	--icon-main-color: var(--color-blue-400);
+	--icon-back-color: var(--color-blue-400);
+
+	/* Fonts */
+
+	--font-family-sans: "Circular", "Satoshi", sans-serif;
+	--font-family-mono: "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+
+	/* General */
+
+	--color-text:   var(--color-text-400);
+	--color-fill:   var(--color-gray-200);
+	--color-field:  var(--color-gray-100);
+	--color-title:  var(--color-text-500);
+	--color-label:  var(--color-text-400);
+	--color-infos:  var(--color-text-300);
+	--color-border: #{mix(--color-gray-600, --color-gray-300, 80%)};
+	--color-stroke: #{mix(--color-gray-600, --color-gray-300, 90%)};
+
+	/* Scrollbar */
+
+	--scrollbar-track-color: #{rgba($color-gray-700, 0.00)};
+	--scrollbar-thumb-color: #{rgba($color-gray-700, 0.35)};
+	--scrollbar-hover-color: #{rgba($color-gray-700, 0.55)};
+	--scrollbar-frame-color: #{rgba($color-gray-700, 0.25)};
+}
+
+/* ==========================================================================
+   Dark Styles
+   ========================================================================== */
+
+@include theme-dark-vars {
+
+	/* Gray */
+
+	--color-gray-100: #{$color-dark-100};
+	--color-gray-200: #{$color-dark-200};
+	--color-gray-300: #{$color-dark-300};
+	--color-gray-400: #{$color-dark-400};
+	--color-gray-500: #{$color-dark-500};
+	--color-gray-600: #{$color-dark-600};
+	--color-gray-700: #{$color-dark-700};
+	--color-gray-800: #{$color-dark-800};
+	--color-gray-900: #{$color-dark-900};
+
+	/* Red */
+
+	--color-red-100: #{$color-red-700};
+	--color-red-200: #{$color-red-600};
+	--color-red-300: #{$color-red-500};
+	--color-red-400: #{$color-red-400};
+	--color-red-500: #{$color-red-300};
+	--color-red-600: #{$color-red-200};
+	--color-red-700: #{$color-red-100};
+
+	/* Green */
+
+	--color-green-100: #{$color-green-700};
+	--color-green-200: #{$color-green-600};
+	--color-green-300: #{$color-green-500};
+	--color-green-400: #{$color-green-400};
+	--color-green-500: #{$color-green-300};
+	--color-green-600: #{$color-green-200};
+	--color-green-700: #{$color-green-100};
+
+	/* Blue */
+
+	--color-blue-100: #{$color-blue-700};
+	--color-blue-200: #{$color-blue-600};
+	--color-blue-300: #{$color-blue-500};
+	--color-blue-400: #{$color-blue-400};
+	--color-blue-500: #{$color-blue-300};
+	--color-blue-600: #{$color-blue-200};
+	--color-blue-700: #{$color-blue-100};
+
+	/* Purple */
+
+	--color-purple-100: #{$color-purple-700};
+	--color-purple-200: #{$color-purple-600};
+	--color-purple-300: #{$color-purple-500};
+	--color-purple-400: #{$color-purple-400};
+	--color-purple-500: #{$color-purple-300};
+	--color-purple-600: #{$color-purple-200};
+	--color-purple-700: #{$color-purple-100};
+
+	/* Orange */
+
+	--color-orange-100: #{$color-orange-700};
+	--color-orange-200: #{$color-orange-600};
+	--color-orange-300: #{$color-orange-500};
+	--color-orange-400: #{$color-orange-400};
+	--color-orange-500: #{$color-orange-300};
+	--color-orange-600: #{$color-orange-200};
+	--color-orange-700: #{$color-orange-100};
+
+	/* Yellow */
+
+	--color-yellow-100: #{$color-yellow-700};
+	--color-yellow-200: #{$color-yellow-600};
+	--color-yellow-300: #{$color-yellow-500};
+	--color-yellow-400: #{$color-yellow-400};
+	--color-yellow-500: #{$color-yellow-300};
+	--color-yellow-600: #{$color-yellow-200};
+	--color-yellow-700: #{$color-yellow-100};
+
+	/* Primary */
+
+	--color-main-100: var(--color-blue-100);
+	--color-main-200: var(--color-blue-200);
+	--color-main-300: var(--color-blue-300);
+	--color-main-400: var(--color-blue-400);
+	--color-main-500: var(--color-blue-500);
+	--color-main-600: var(--color-blue-600);
+	--color-main-700: var(--color-blue-700);
+
+	/* Success */
+
+	--success-100: var(--color-blue-100);
+	--success-200: var(--color-blue-200);
+	--success-300: var(--color-blue-300);
+	--success-400: var(--color-blue-400);
+	--success-500: var(--color-blue-500);
+	--success-600: var(--color-blue-600);
+	--success-700: var(--color-blue-700);
+
+	/* Warning */
+
+	--color-warn-100: var(--color-red-100);
+	--color-warn-200: var(--color-red-200);
+	--color-warn-300: var(--color-red-300);
+	--color-warn-400: var(--color-red-400);
+	--color-warn-500: var(--color-red-500);
+	--color-warn-600: var(--color-red-600);
+	--color-warn-700: var(--color-red-700);
+
+	/* General */
+
+	--color-text:   var(--color-gray-800);
+	--color-fill:   var(--color-gray-200);
+	--color-field:  var(--color-gray-100);
+	--color-title:  var(--color-gray-900);
+	--color-label:  var(--color-gray-800);
+	--color-infos:  var(--color-gray-700);
+	--color-border: #{mix(--color-gray-600, --color-gray-300, 80%)};
+	--color-stroke: #{mix(--color-gray-600, --color-gray-300, 90%)};
+
+	/* Scroll Bar */
+
+	--scrollbar-track-color: transparent;
+	--scrollbar-thumb-color: #{rgba($color-dark-800, 0.25)};
+	--scrollbar-hover-color: #{rgba($color-dark-800, 0.50)};
+	--scrollbar-frame-color: #{rgba($color-dark-500, 1.00)};
+
+}
+
+/* ==========================================================================
+   Selection
+   ========================================================================== */
+
+::-moz-selection {
+
+	background-color: var(--color-main-200);
+
+	@include theme-dark {
+		background-color: var(--color-main-200);
+	}
+}
+
+::selection {
+
+	background-color: var(--color-main-200);
+
+	@include theme-dark {
+		background-color: var(--color-main-200);
+	}
+}
+
+*:focus {
+    outline: none;
+}
+
+/* ==========================================================================
+   Everything
+   ========================================================================== */
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+}
+
+/* ==========================================================================
+   HTML
+   ========================================================================== */
+
+html {
+	scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+* {
+
+	@include transition-property(default);
+	@include transition-duration(fast);
+	@include transition-equation(fast);
+
+	&:before {
+		@include transition-property(default);
+		@include transition-duration(fast);
+		@include transition-equation(fast);
+	}
+
+	&:after {
+		@include transition-property(default);
+		@include transition-duration(fast);
+		@include transition-equation(fast);
+	}
+}
+
+/* ==========================================================================
+   Scrollbars
+   ========================================================================== */
+
+* {
+	@include scrollbar;
+}
+
+/* ==========================================================================
+   Body
+   ========================================================================== */
+
+body {
+
+	@include text-antialias();
+
+	@include typeface(
+		Sans,
+		$size: 14px,
+		$fill: --color-text
+	);
+
+	@include relative;
+	@include flex-box;
+	@include flex-col(start, stretch);
+	background: var(--color-gray-200);
+	line-height: 1.35;
+	margin: 0px;
+	min-height: 100%;
+	min-width: 100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	padding: 0px;
+
+	&.no-scroll {
+		overflow: hidden;
+	}
+
+	&.dragging {
+		user-select: none;
+	}
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+img, svg, video {
+	display: block;
+}
+
+strong {
+	font-weight: 500;
+}

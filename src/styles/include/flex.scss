@@ -1,0 +1,220 @@
+@use "sass:math";
+
+/**
+ * @mixin flexible
+ * @since 1.0.0
+ */
+@mixin flexible($fg: 1, $fs: 0, $fb: auto) {
+
+	@if $fg == none {
+		flex: none;
+	} @else if $fg == fill {
+		flex: 1 0 auto;
+	} @else if $fg == wrap {
+		flex: 0 1 auto;
+	} @else if $fg == both {
+		flex: 1 1 auto;
+	} @else if $fg == even {
+		flex: 1 1 0;
+	} @else {
+		flex: $fg $fs $fb;
+	}
+
+	@if $fg == wrap or
+		$fg == both or
+		$fs > 0 {
+		min-width: 0;
+		max-width: 100%;
+		min-height: 0;
+		max-height: 100%;
+	}
+}
+
+/**
+ * @mixin flex-box
+ * @since 1.0.0
+ */
+@mixin flex-box($fg: null, $fs: 0, $fb: auto) {
+
+	display: flex;
+
+	@if $fg != null {
+		@include flexible($fg, $fs, $fb);
+	}
+}
+
+/**
+ * @mixin flex-inl
+ * @since 1.0.0
+ */
+@mixin flex-inl($fg: null, $fs: 0, $fb: auto) {
+
+	display: inline-flex;
+
+	@if $fg != null {
+		@include flexible($fg, $fs, $fb);
+	}
+}
+
+/**
+ * @mixin flex-row
+ * @since 1.0.0
+ */
+@mixin flex-row($v, $h, $mode: row, $wrap: false) {
+
+	$v: get-flex-value($v);
+	$h: get-flex-value($h);
+
+	@if $mode == reverse {
+		$mode: row-reverse;
+	}
+
+	flex-direction: $mode;
+
+	@if $wrap {
+		flex-wrap: wrap;
+	}
+
+	align-items:     $v;
+	justify-content: $h;
+}
+
+/**
+ * @mixin flex-col
+ * @since 1.0.0
+ */
+@mixin flex-col($v, $h, $mode: column, $wrap: false) {
+
+	$v: get-flex-value($v);
+	$h: get-flex-value($h);
+
+	@if $mode == reverse {
+		$mode: column-reverse;
+	}
+
+	flex-direction: $mode;
+
+	@if $wrap {
+		flex-wrap: wrap;
+	}
+
+	align-items:     $h;
+	justify-content: $v;
+}
+
+/**
+ * @mixin flex-gap
+ * @since 1.0.0
+ */
+@mixin flex-gap($gap) {
+	@include flex-row-gap($gap);
+	@include flex-col-gap($gap);
+}
+
+/**
+ * @mixin flex-row-gap
+ * @since 1.0.0
+ */
+ @mixin flex-row-gap($gap, $min: null) {
+	@if type-of($gap) == number and
+		unit-of($gap) == px {
+		row-gap: rvw($gap, $min);
+	} @else {
+		row-gap: $gap;
+	}
+}
+
+/**
+ * @mixin flex-col-gap
+ * @since 1.0.0
+ */
+@mixin flex-col-gap($gap, $min: null) {
+	@if type-of($gap) == number and
+		unit-of($gap) == px {
+		column-gap: rvw($gap, $min);
+	} @else {
+		column-gap: $gap;
+	}
+}
+
+/**
+ * @mixin flex-row-item
+ * @since 1.0.0
+ */
+ @mixin flex-row-item($width, $gap-max, $gap-min: null) {
+
+	@if $width == 66% {
+		$width: 66.6666%;
+	}
+
+	@if $width == 33% {
+		$width: 33.3333%;
+	}
+
+	$size: strip-unit($width);
+
+	$span: math.div(100, $size);
+	$cols: math.floor($span);
+	$gaps: math.floor($span - 1);
+
+	width: calc(
+		#{$width} - (#{rvw($gap-max, $gap-min)} / #{$cols} * #{$gaps})
+	);
+}
+
+/**
+ * @mixin mflex-set
+ * @since 1.0.0
+ */
+@mixin flex-set($align) {
+	align-self: get-flex-value($align);
+}
+
+/**
+ * @mixin flex-ord
+ * @since 1.0.0
+ */
+@mixin flex-ord($int: 0) {
+	order: $int;
+}
+
+/**
+ * @mixin flex-width
+ * @since 1.0.0
+ */
+@mixin flex-width($min, $max, $class, $gap: 0px) {
+
+	@for $i from $min through $max {
+
+		$width: math.div($i, $max) * 100%;
+
+		#{$class}#{$class}--#{$i} {
+
+			@include flexible(none);
+			@include flex-row-item($width, $gap);
+
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+// Private API
+//------------------------------------------------------------------------------
+
+/**
+ * @function get-flex-value
+ * @since 1.0.0
+ * @hidden
+ */
+@function get-flex-value($value) {
+
+	@if $value == start {
+		@return flex-start;
+	}
+
+	@if $value == end {
+		@return flex-end;
+	}
+
+	@return $value;
+}

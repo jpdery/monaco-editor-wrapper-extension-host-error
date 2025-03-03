@@ -1,0 +1,53 @@
+
+/**
+ * @mixin media-breakpoint-up
+ * @since 1.0.0
+ */
+ @mixin media-breakpoint-up($name) {
+	@media (min-width: breakpoint-get($name)) {
+		@content;
+	}
+}
+
+/**
+ * @mixin media-breakpoint-down
+ * @since 1.0.0
+ */
+@mixin media-breakpoint-down($name) {
+	@media (max-width: breakpoint-get($name)) {
+		@content;
+	}
+}
+
+/**
+ * @mixin container-breakpoint-up
+ * @since 1.0.0
+ */
+ @mixin container-breakpoint-up($name) {
+	@media (min-width: breakpoint-get($name)) {
+		@content;
+	}
+}
+
+/**
+ * @mixin container-breakpoint-down
+ * @since 1.0.0
+ */
+@mixin container-breakpoint-down($name) {
+	@media (max-width: breakpoint-get($name)) {
+		@content;
+	}
+}
+
+//------------------------------------------------------------------------------
+// Private API
+//------------------------------------------------------------------------------
+
+/**
+ * @function breakpoint-get
+ * @since 1.0.0
+ * @hidden
+ */
+ @function breakpoint-get($name, $sizes: $grid-size, $names: $grid-name) {
+	@return map-get($sizes, if(map-has-key($names, $name), map-get($names, $name), $name));
+}

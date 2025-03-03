@@ -1,0 +1,100 @@
+@import 'component.scss';
+
+.wysiwyg {
+
+	@include typeface(
+		Sans,
+		$size: 16px,
+		$fill: --color-gray-900
+	);
+
+	line-height: 1.65;
+
+	pre {
+		margin: 0px;
+	}
+
+	code {
+		@include typeface(Mono, $size: 14px);
+	}
+
+	p {
+
+		margin-top: rvw(16px);
+		margin-bottom: rvw(16px);
+
+		&:first-child {
+			margin-top: 0px;
+		}
+
+		&:last-child {
+			margin-bottom: 0px;
+		}
+	}
+
+	img,
+	video,
+	audio {
+		@include bordered;
+	}
+
+	table {
+
+		border: none;
+		border-collapse: collapse;
+		width: 100%;
+
+		th, td {
+			border-top: 1px solid var(--color-stroke);
+			border-bottom: 1px solid var(--color-stroke);
+		}
+
+		th {
+
+			@include typeface(Sans500, $size: 14px);
+			background: var(--color-gray-100);
+			border-top: none;
+			border-bottom: none;
+			padding: rvw(12px);
+			padding-left: rvw(16px);
+			padding-right: rvw(16px);
+			text-align: left;
+
+			&:first-of-type {
+				border-top-left-radius: rvw(8px);
+			}
+
+			&:last-of-type {
+				border-top-right-radius: rvw(8px);
+			}
+		}
+
+		td {
+			@include typeface(Sans, $size: 14px);
+			padding: rvw(12px);
+			padding-left: rvw(16px);
+			padding-right: rvw(16px);
+		}
+	}
+
+	a {
+
+		color: var(--color-main-400);
+		text-decoration: underline;
+		text-decoration-color: var(--color-main-400);;
+		text-decoration-thickness: rvw(1px);
+		text-underline-offset: 0.1em;
+
+		&:hover {
+			color: var(--color-main-500);
+		}
+	}
+
+	i {
+		@include icon-fill(--color-gray-800);
+		font-size: 1em;
+		margin-left: 0.15em;
+		margin-right: 0.15em;
+	}
+
+}

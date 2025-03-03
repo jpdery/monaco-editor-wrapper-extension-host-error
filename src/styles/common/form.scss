@@ -1,0 +1,33 @@
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+input, button, textarea, select {
+
+	@include typeface(
+		Sans,
+		$size: 14px,
+		$fill: inherit
+	);
+
+	outline: none;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:invalid {
+		box-shadow: none;
+	}
+
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	@include placeholder {
+		color: var(--color-gray-600);
+		opacity: 1;
+	}
+}

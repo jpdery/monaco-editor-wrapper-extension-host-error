@@ -1,0 +1,146 @@
+/**
+ * @mixin flex-row-gap
+ * @since 1.0.0
+ */
+@mixin grid-box($fg: null, $fs: 0, $fb: auto) {
+
+	display: grid;
+
+	@if $fg != null {
+		@include flexible($fg, $fs, $fb);
+	}
+}
+
+/**
+ * @mixin grid-col
+ * @since 1.0.0
+ */
+@mixin grid-col($cols...) {
+
+	$items: ();
+
+	@if length($cols) == 1 {
+
+		$items: repeat(nth($cols, 1), 1fr);
+
+	} @else {
+
+		@for $i from 0 to length($cols) {
+
+			$value: nth($cols, $i + 1);
+
+			@if type-of($value) == number and
+				unit-of($value) == 'px' {
+				$value: rvw($value)
+			}
+
+			$items: append($items, $value);
+		}
+
+	}
+
+	grid-template-columns: $items;
+}
+
+/**
+ * @mixin grid-row
+ * @since 1.0.0
+ */
+@mixin grid-row($rows...) {
+
+	$items: ();
+
+	@if length($rows) == 1 {
+
+		$items: repeat(nth($rows, 1), 1fr);
+
+	} @else {
+
+		@for $i from 0 to length($rows) {
+
+			$value: nth($rows, $i + 1);
+
+			@if type-of($value) == number and
+				unit-of($value) == 'px' {
+				$value: rvw($value)
+			}
+
+			$items: append($items, $value);
+		}
+
+	}
+
+	grid-template-rows: $items;
+}
+
+/**
+ * @mixin grid-rows
+ * @since 1.0.0
+ */
+@mixin grid-col-span($s, $e: null) {
+	@if $s == fill {
+		grid-column-start: 1;
+		grid-column-end: -1;
+	} @else {
+		grid-column-start: $s;
+		grid-column-end: $e + 1;
+	}
+}
+
+/**
+ * @mixin grid-rows
+ * @since 1.0.0
+ */
+@mixin grid-row-span($s, $e: null) {
+	@if $s == fill {
+		grid-row-start: 1;
+		grid-row-end: -1;
+	} @else {
+		grid-row-start: $s;
+		grid-row-end: $e + 1;
+	}
+}
+
+/**
+ * @mixin grid-gap
+ * @since 1.0.0
+ */
+@mixin grid-gap($gap, $min: null) {
+	@include grid-row-gap($gap, $min);
+	@include grid-col-gap($gap, $min);
+}
+
+/**
+ * @mixin grid-row-gap
+ * @since 1.0.0
+ */
+@mixin grid-row-gap($gap, $min: null) {
+	@if type-of($gap) == number and
+		unit-of($gap) == px {
+		row-gap: rvw($gap, $min);
+	} @else {
+		row-gap: $gap;
+	}
+}
+
+/**
+ * @mixin grid-col-gap
+ * @since 1.0.0
+ */
+@mixin grid-col-gap($gap, $min: null) {
+	@if type-of($gap) == number and
+		unit-of($gap) == px {
+		column-gap: rvw($gap, $min);
+	} @else {
+		column-gap: $gap;
+	}
+}
+
+/**
+ * @mixin grid-set
+ * @since 1.0.0
+ */
+ @mixin grid-set($v, $h) {
+	align-self:   get-flex-value($v);
+	justify-self: get-flex-value($h);
+}

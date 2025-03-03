@@ -1,0 +1,76 @@
+//------------------------------------------------------------------------------
+// Grid
+//------------------------------------------------------------------------------
+
+/**
+ * The breakpoint keys.
+ * @var breakpoints
+ * @since 1.0.0
+ */
+ $breakpoints: (
+	xxl-3840,
+	xxl-3200,
+	xxl-2560,
+	xxl-2240,
+	xxl,
+	xl,
+	lg,
+	md,
+	sm,
+	xs,
+	xxs
+);
+
+/**
+ * The grid sizes.
+ * @var size
+ * @since 1.0.0
+ */
+$grid-size: (
+	xxs:      320px,
+	xs:       480px,
+	sm:       640px,
+	md:       960px,
+	lg:       1280px,
+	xl:       1600px,
+	xxl:      1920px,
+	xxl-2240: 2240px,
+	xxl-2560: 2560px,
+	xxl-3200: 3200px,
+	xxl-3840: 3840px,
+);
+
+/**
+ * The grid names.
+ * @var grid-name
+ * @since 1.0.0
+ */
+$grid-name: (
+	xxl-4k:    xxl-3840,
+	xxl-1440p: xxl-2560,
+	xxl-1080p: xxl,
+	xxl-720p:  lg
+);
+
+//------------------------------------------------------------------------------
+// Transitions
+//------------------------------------------------------------------------------
+
+/**
+ * Transition speed and curves.
+ * @var transitions
+ * @since 1.0.0
+ */
+$transitions: (
+
+	soft: (
+		duration: 750ms,
+		equation: cubic-bezier(0.230, 1.000, 0.320, 1.000)
+	),
+
+	fast: (
+		duration: 375ms,
+		equation: cubic-bezier(0.230, 1.000, 0.320, 1.000)
+	)
+
+);

@@ -1,0 +1,1250 @@
+@use 'sass:math';
+
+/**
+ * @mixin placeholder
+ * @since 1.0.0
+ */
+ @mixin placeholder {
+	&::-webkit-input-placeholder { @content; }
+	&::-moz-placeholder          { @content; }
+	&:-moz-placeholder           { @content; }
+	&:-ms-input-placeholder      { @content; }
+}
+
+/**
+ * @mixin selection
+ * @since 1.0.0
+ */
+@mixin selection {
+	::selection      { @content; }
+	::-moz-selection { @content; }
+}
+
+/**
+ * @mixin theme-dark-vars
+ * @since 1.0.0
+ */
+@mixin theme-dark-vars {
+
+	.theme-dark {
+		@content;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.theme-auto {
+			@content;
+		}
+	}
+}
+
+/**
+ * @mixin theme-dark
+ * @since 1.0.0
+ */
+ @mixin theme-dark {
+
+	.theme-dark & {
+		@content;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.theme-auto & {
+			@content;
+		}
+	}
+}
+
+/**
+ * @mixin theme-light
+ * @since 1.0.0
+ */
+ @mixin theme-light {
+
+	.theme-light & {
+		@content;
+	}
+
+	@media (prefers-color-scheme: light) {
+		.theme-auto & {
+			@content;
+		}
+	}
+}
+
+/**
+ * @mixin scrollbar
+ * @since 1.0.0
+ */
+@mixin scrollbar(
+	$track-color: var(--scrollbar-track-color),
+	$hover-color: var(--scrollbar-hover-color),
+	$thumb-color: var(--scrollbar-thumb-color)
+) {
+
+	/* Native Scrollbars */
+
+	scrollbar-width: thin;
+	scrollbar-color: $thumb-color $track-color;
+
+	/* Overlay Scrollbars */
+
+	.os-scrollbar {
+		--os-size: 7px;
+		--os-track-bg: #{$track-color};
+		--os-handle-bg: #{$thumb-color};
+		--os-handle-bg-hover: #{$hover-color};
+		--os-handle-bg-active: #{$hover-color};
+		--os-handle-min-size: 36px;
+		--os-handle-max-size: none;
+		--os-handle-border: none;
+		--os-handle-border-radius: 6px;
+		--os-padding-perpendicular: 2px;
+		--os-padding-axis: 4px;
+		--os-handle-interactive-area-offset: 4px;
+	}
+}
+
+/**
+ * @mixin scrollbar-offset
+ * @since 1.0.0
+ */
+@mixin scrollbar-offset($offset) {
+	.os-scrollbar {
+		--os-padding-axis: #{$offset};
+	}
+}
+
+/**
+ * @mixin position
+ * @since 1.0.0
+ */
+@mixin position($mode, $args: ()) {
+
+	@if type-of($args) == string {
+
+		@if $args == top {
+
+			@include set-position($mode,
+				top    0
+				left   0
+				right  0
+			);
+
+		} @else if $args == left {
+
+			@include set-position($mode,
+				top    0
+				left   0
+				bottom 0
+			);
+
+		} @else if $args == right {
+
+			@include set-position($mode,
+				top    0
+				right  0
+				bottom 0
+			);
+
+		} @else if $args == bottom {
+
+			@include set-position($mode,
+				left   0
+				right  0
+				bottom 0
+			);
+
+		} @else if $args == fill {
+
+			@include set-position($mode,
+				top    0
+				left   0
+				right  0
+				bottom 0
+			);
+
+		} @else if $args == auto {
+
+			@include set-position($mode,
+				top    auto
+				left   auto
+				right  auto
+				bottom auto
+			);
+
+		}
+
+	} @else if type-of($args) == number {
+
+		@include set-position($mode,
+			top    $args
+			left   $args
+			right  $args
+			bottom $args
+		);
+
+	} @else {
+
+		@if $mode == absolute {
+			@include set-position(absolute, $args);
+		} @else if $mode == relative {
+			@include set-position(relative, $args);
+		} @else if $mode == sticky {
+			@include set-position(sticky, $args)
+		} @else if $mode == fixed {
+			@include set-position(fixed, $args)
+		}
+
+	}
+}
+
+/**
+ * @mixin absolute
+ * @since 1.0.0
+ */
+@mixin absolute($args: ()) {
+	@include position(absolute, $args);
+}
+
+/**
+ * @mixin relative
+ * @since 1.0.0
+ */
+@mixin relative($args: ()) {
+	@include position(relative, $args);
+}
+
+/**
+ * @mixin fill
+ * @since 1.0.0
+ */
+@mixin fill($offset: 0) {
+	@include absolute(top $offset left $offset right $offset bottom $offset);
+}
+
+/**
+ * @mixin expanded
+ * @since 1.0.0
+ */
+@mixin expanded($w: null, $h: null, $mw: null, $mh: null) {
+
+	@if $w == null and
+		$h == null {
+
+		@include expanded(100%, 100%);
+
+	} @else if $w == min {
+
+		@include expanded(min(100cqw, 100cqh));
+
+	} @else if $w == max {
+
+		@include expanded(max(100cqw, 100cqh));
+
+	} @else if $w != null and $h != null {
+
+		@if type-of($h) == number and
+			unit-of($h) == px {
+			height: rvw($h, $mh);
+		} @else {
+			height: $h;
+		}
+
+		@if type-of($w) == number and
+			unit-of($w) == px {
+			width: rvw($w, $mw);
+		} @else {
+			width: $w;
+		}
+
+	} @else {
+
+		@if type-of($w) == number and
+			unit-of($w) == px {
+			height: rvw($w, $mw);
+			width:  rvw($w, $mw);
+		} @else {
+			height: $w;
+			width:  $w;
+		}
+
+	}
+}
+
+/**
+ * @mixin elevated
+ * @since 1.0.0
+ */
+ @mixin elevated($name, $o: 0) {
+	@if $name == menu {
+		z-index: 500 + $o;
+	} @else if $name == alert {
+		z-index: 700 + $o;
+	} @else if $name == modal {
+		z-index: 600 + $o;
+	} @else if $name == header {
+		z-index: 100 + $o;
+	} @else if $name == footer {
+		z-index: 100 + $o;
+	} @else if $name == drawer {
+		z-index: 150 + $o;
+	} @else if $name == error {
+		z-index: 1000 + $o;
+	} @else {
+		z-index: $name + $o;
+	}
+}
+
+/**
+ * @mixin pushable
+ * @since 1.0.0
+ */
+@mixin pushable {
+	cursor: pointer;
+	user-select: none;
+}
+
+/**
+ * @mixin grabable
+ * @since 1.0.0
+ */
+@mixin grabable {
+	cursor: grab;
+	user-select: none;
+}
+
+/**
+ * @mixin circular
+ * @sinc 1.0.0
+ */
+@mixin circular($size) {
+	@include flexible(none);
+	@include cornered($size);
+	@include expanded($size);
+}
+
+/**
+ * @mixin bordered
+ * @sinc 1.0.0
+ */
+@mixin bordered($radius: normal, $offset: 0, $width: 1px, $color: --color-border, $clip: true) {
+
+	@if $radius == top {
+		border-top-style: solid;
+		border-top-width: rvw($width);
+		border-top-color: val($color);
+	} @else if $radius == left {
+		border-left-style: solid;
+		border-left-width: rvw($width);
+		border-left-color: val($color);
+	} @else if $radius == right {
+		border-right-style: solid;
+		border-right-width: rvw($width);
+		border-right-color: val($color);
+	} @else if $radius == bottom {
+		border-bottom-style: solid;
+		border-bottom-width: rvw($width);
+		border-bottom-color: val($color);
+	} @else {
+
+		@if $width {
+			border-style: solid;
+			border-width: rvw($width);
+			border-color: val($color)
+		}
+
+		@include cornered(
+			$radius,
+			$offset,
+			$clip
+		);
+
+	}
+}
+
+/**
+ * @mixin cornered
+ * @sinc 1.0.0
+ */
+@mixin cornered($radius: normal, $offset: 0, $target: all, $clip: true, ) {
+
+	@if $radius == top or
+		$radius == left or
+		$radius == right or
+		$radius == bottom {
+		$target: $radius;
+		$radius: normal;
+	}
+
+	@if type-of($radius) == number and
+		unit-of($radius) == px {
+		border-radius: rvw($radius + $offset);
+	} @else if $radius == small {
+		border-radius: rvw(8px + $offset);
+	} @else if $radius == normal {
+		border-radius: rvw(16px + $offset);
+	} @else if $radius == large {
+		border-radius: rvw(24px + $offset);
+	} @else {
+		border-radius: $radius;
+	}
+
+	@if $clip {
+		overflow: hidden;
+	}
+
+	@if $target == top {
+		border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+
+	@if $target == left {
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+
+	@if $target == right {
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+	}
+
+	@if $target == bottom {
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+	}
+}
+
+/**
+ * @mixin outlined
+ * @sinc 1.0.0
+ */
+@mixin outlined($radius: normal, $offset: 1px, $width: 2px, $color: --color-main) {
+
+	@include after {
+		@include absolute(-$offset);
+		@include cornered($radius, $offset);
+		@include transition-property(default, opacity);
+		@include transition-duration(fast);
+		@include transition-equation(fast);
+		@include hidden;
+		border-style: solid;
+		border-width: rvw($width);
+		border-color: val($color);
+		pointer-events: none;
+	}
+
+	overflow: visible;
+}
+
+/**
+ * @mixin shadowed
+ * @sinc 1.0.0
+ */
+@mixin shadowed($x: 0, $y: 0px, $radius: 16px, $spread: 0px, $color: #000, $alpha: 0.05) {
+	box-shadow: rvw($x) rvw($y) rvw($radius) rvw($spread) rgba($color, $alpha);
+}
+
+/**
+ * @mixin blurried
+ * @sinc 1.0.0
+ */
+@mixin blurried($value: 24px, $alpha: 1) {
+	@if $value == none {
+		backdrop-filter: none;
+	} @else {
+		backdrop-filter: blur($value) opacity($alpha);
+	}
+}
+
+/**
+ * @mixin edgeline
+ * @since 1.0.0
+ */
+@mixin edgeline($value: null, $width: 1px, $color: --color-stroke) {
+	@if $value == none {
+		border: none;
+	} @else if $value == null {
+		border: rvw($width) solid val($color);
+	} @else if $value == top {
+		border-top: rvw($width) solid val($color);
+	} @else if $value == left {
+		border-left: rvw($width) solid val($color);
+	} @else if $value == right {
+		border-right: rvw($width) solid val($color);
+	} @else if $value == bottom {
+		border-bottom: rvw($width) solid val($color);
+	}
+}
+
+/**
+ * @mixin bezelled
+ * @since 1.0.0
+ */
+@mixin bezelled {
+
+	border: 1px solid transparent;
+
+	background: linear-gradient(
+		to bottom right,
+		rgba(#FFF, 0.50),
+		rgba(#FFF, 0.25),
+		rgba(#FFF, 0.00)
+	) border-box;
+
+	@include theme-dark {
+		background: linear-gradient(
+			to bottom right,
+			rgba(#FFF, 0.075),
+			rgba(#FFF, 0.0),
+			rgba(#FFF, 0.0)
+		) border-box;
+	}
+
+	mask:
+		linear-gradient(#000 0 0) padding-box,
+		linear-gradient(#000 0 0);
+
+  	mask-composite: exclude;
+}
+
+/**
+ * @mixin ellipsis
+ * @since 1.0.0
+ */
+@mixin ellipsis($lines: null) {
+
+	@if $lines == none {
+
+		-webkit-line-clamp: initial;
+		-webkit-box-orient: initial;
+
+		display: block;
+		min-width: initial;
+		max-width: initial;
+		overflow: initial;
+		text-overflow: initial;
+		white-space: normal;
+
+	} @else {
+
+		min-width: 0;
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		@if $lines == null {
+			white-space: nowrap;
+		} @else {
+			display: -webkit-box;
+			-webkit-line-clamp: $lines;
+			-webkit-box-orient: vertical;
+		}
+
+	}
+}
+
+/**
+ * @mixin hidden
+ * @since 1.0.0
+ */
+@mixin hidden($alpha: 0) {
+	opacity: $alpha;
+	visibility: hidden;
+}
+
+/**
+ * @mixin visible
+ * @since 1.0.0
+ */
+@mixin visible($alpha: 1) {
+	opacity: $alpha;
+	visibility: visible;
+}
+
+//------------------------------------------------------------------------------
+// Icons Mixins
+//------------------------------------------------------------------------------
+
+/**
+ * @mixin icon-size
+ * @sinc 1.0.0
+ */
+@mixin icon-size($size) {
+
+	font-size: rvw($size);
+
+	svg {
+		@include expanded($size);
+	}
+}
+
+/**
+ * @mixin icon-fill
+ * @sinc 1.0.0
+ */
+@mixin icon-fill(
+	$color,
+	$shade: $color,
+	$color-alpha: 1.00,
+	$shade-alpha: 0.55,
+	$dark-color-alpha: $color-alpha,
+	$dark-shade-alpha: $shade-alpha,
+	$shape: null,
+	$style: null) {
+
+	$pri-color-key: '--fa-primary-color';
+	$pri-alpha-key: '--fa-primary-opacity';
+	$sec-color-key: '--fa-secondary-color';
+	$sec-alpha-key: '--fa-secondary-opacity';
+
+	@if $style == solid {
+
+		font-weight: 900;
+		font-family: "Font Awesome 6 Pro";
+
+		&:after {
+			display: none;
+		}
+	}
+
+	@if $color == button {
+
+		@include icon-fill(
+			$color: --color-gray-800,
+			$shade: --color-gray-700
+		);
+
+	} @else if $color == button-highlight {
+
+		@include icon-fill(
+			$color: --color-main-500
+		);
+
+	} @else if $color == button-muted {
+
+		@include icon-fill(
+			$color: --color-gray-600,
+			$shade: --color-gray-700
+		);
+
+	} @else if $color == button-muted-highlight {
+
+		@include icon-fill(
+			$color: --color-main-300
+		);
+
+	} @else if $color == button-faded {
+
+		@include icon-fill(
+			$color: --color-gray-800,
+			$color-alpha: 0.75,
+			$shade-alpha: 0.50
+		);
+
+	} @else if $color == button-faded-highlight {
+
+		@include icon-fill(
+			$color: --color-main-300,
+			$color-alpha: 0.75,
+			$shade-alpha: 0.50
+		);
+
+	} @else {
+
+		#{$pri-color-key}: #{val($color)};
+		#{$sec-color-key}: #{val($shade)};
+		#{$pri-alpha-key}: $color-alpha;
+		#{$sec-alpha-key}: $shade-alpha;
+
+		@include theme-dark {
+			#{$pri-color-key}: #{val($color)};
+			#{$sec-color-key}: #{val($shade)};
+			#{$pri-alpha-key}: $dark-color-alpha;
+			#{$sec-alpha-key}: $dark-shade-alpha;
+		}
+
+		color: #{val($color)};
+	}
+
+	@if $shape {
+		background-color: #{val($shape)};
+	}
+}
+
+/**
+ * @mixin icon-circ
+ * @sinc 1.0.0
+ */
+@mixin icon-circ($d) {
+
+	@if $d {
+		border-radius: rvw($d);
+	}
+
+	height: rvw($d);
+	width:  rvw($d);
+}
+
+/**
+ * @mixin icon-rect
+ * @sinc 1.0.0
+ */
+@mixin icon-rect($w, $h: null, $r: null) {
+
+	@if $h == null {
+		$h: $w;
+	}
+
+	@if $r {
+		border-radius: rvw($r);
+	}
+
+	height: rvw($w);
+	width:  rvw($h);
+}
+
+/**
+ * @mixin icon-area
+ * @sinc 1.0.0
+ */
+@mixin icon-area($size) {
+
+	@if $size == ph {
+		height: 100%;
+	}
+
+	@if $size == pw {
+		width: 100%;
+	}
+
+	aspect-ratio: 1 / 1;
+}
+
+//------------------------------------------------------------------------------
+// Transition Mixin
+//------------------------------------------------------------------------------
+
+/**
+ * @mixin transition-property
+ * @since 1.0.0
+ */
+ @mixin transition-property($args...) {
+
+	@if length($args) == 0 {
+
+		@include transition-property(background-color, border-color, color);
+
+	} @else {
+
+		$items: ();
+
+		@each $value in $args {
+
+			@if $value == default {
+
+				$items: append($items, background-color, $separator: comma);
+				$items: append($items, border-color, $separator: comma);
+				$items: append($items, color, $separator: comma);
+
+			} @else if $value == opacity {
+
+				$items: append($items, visibility, $separator: comma);
+				$items: append($items, opacity, $separator: comma);
+
+			} @else if $value == background {
+
+				$items: append($items, background-position, $separator: comma);
+				$items: append($items, background-color, $separator: comma);
+				$items: append($items, background-size, $separator: comma);
+
+			} @else if $value == backdrop {
+
+				$items: append($items, backdrop-filter, $separator: comma);
+
+			}@else if $value == size {
+
+				$items: append($items, height, $separator: comma);
+				$items: append($items, width, $separator: comma);
+
+			} @else {
+
+				$items: append($items, $value, $separator: comma);
+
+			}
+		}
+
+		transition-property: $items;
+	}
+}
+
+/**
+ * @mixin transition-duration
+ * @since 1.0.0
+ */
+@mixin transition-duration($args...) {
+
+	$items: ();
+	$index: 1;
+	$limit: length($args);
+
+	@while $index <= $limit {
+
+		$val: nth-if($args, $index + 0);
+		$mul: nth-if($args, $index + 1);
+		$off: nth-if($args, $index + 2);
+
+		$tval: type-of($val);
+		$tmul: type-of($mul);
+		$toff: type-of($off);
+
+		$umul: if($tmul == number, unit-of($mul), null);
+		$uoff: if($toff == number, unit-of($off), null);
+
+		$value: null;
+
+		@if
+
+			$tval == string and
+			$tmul == number and
+			$toff == number and
+			$umul == '' and
+			$uoff == '' {
+
+			$value: transition-duration($val, $mul, $off);
+			$index: $index + 3;
+
+		} @else if
+
+			$tval == string and
+			$tmul == number and
+			$umul == '' {
+
+			$value: transition-duration($val, $mul);
+			$index: $index + 2;
+
+		} @else if $tval == string {
+
+			$value: transition-duration($val);
+			$index: $index + 1;
+
+		} @else if $tval == number {
+
+			$value: $val;
+			$index: $index + 1;
+
+		} @else {
+
+			@error "Invalid format.";
+
+		}
+
+		$items: append($items, $value, $separator: comma);
+	}
+
+	transition-duration: $items;
+}
+
+/**
+ * @mixin transition-equation
+ * @since 1.0.0
+ */
+@mixin transition-equation($args...) {
+
+	$items: ();
+	$index: 1;
+	$limit: length($args);
+
+	@while $index <= $limit {
+
+		$val: nth-if($args, $index + 0);
+		$mul: nth-if($args, $index + 1);
+		$off: nth-if($args, $index + 2);
+
+		$tval: type-of($val);
+		$tmul: type-of($mul);
+		$toff: type-of($off);
+
+		$umul: if($tmul == number, unit-of($mul), null);
+		$uoff: if($toff == number, unit-of($off), null);
+
+		$value: null;
+
+		@if $tval == number {
+
+			$value: $val;
+			$index: $index + 1;
+
+		} @else if
+
+			$tval == string and
+			$tmul == number and
+			$toff == number and
+			$umul == '' and
+			$uoff == '' {
+
+			$value: transition-equation($val, $mul, $off);
+			$index: $index + 3;
+
+		} @else if
+
+			$tval == string and
+			$tmul == number and
+			$umul == '' {
+
+			$value: transition-equation($val, $mul);
+			$index: $index + 2;
+
+		} @else if $tval == string {
+
+			$value: transition-equation($val);
+			$index: $index + 1;
+
+		} @else {
+
+			@error "Invalid format.";
+
+		}
+
+		$items: append($items, $value, $separator: comma);
+	}
+
+	transition-timing-function: $items;
+}
+
+/**
+ * @mixin transition-delay
+ * @since 1.0.0
+ */
+@mixin transition-delay($args...) {
+
+	$items: ();
+	$index: 1;
+	$limit: length($args);
+
+	@while $index <= $limit {
+
+		$val: nth-if($args, $index + 0);
+		$mul: nth-if($args, $index + 1);
+		$off: nth-if($args, $index + 2);
+
+		$tval: type-of($val);
+		$tmul: type-of($mul);
+		$toff: type-of($off);
+
+		$umul: if($tmul == number, unit-of($mul), null);
+		$uoff: if($toff == number, unit-of($off), null);
+
+		$value: null;
+
+		@if $tval == number {
+
+			$value: $val;
+			$index: $index + 1;
+
+		} @else if
+
+			$tval == string and
+			$tmul == number and
+			$toff == number and
+			$umul == '' and
+			$uoff == '' {
+
+			$value: transition-delay($val, $mul, $off);
+			$index: $index + 3;
+
+		} @else if
+
+			$tval == string and
+			$tmul == number and
+			$umul == '' {
+
+			$value: transition-delay($val, $mul);
+			$index: $index + 2;
+
+		} @else if $tval == string {
+
+			$value: transition-delay($val);
+			$index: $index + 1;
+
+		} @else {
+
+			@error "Invalid format.";
+
+		}
+
+		$items: append($items, $value, $separator: comma);
+	}
+
+	transition-delay: $items;
+}
+
+/**
+ * @mixin before
+ * @since 1.0.0
+ */
+ @mixin before {
+	&:before {
+		content: '';
+		display: block;
+		@content;
+	}
+}
+
+/**
+ * @mixin before
+ * @since 1.0.0
+ */
+@mixin after {
+	&:after {
+		content: '';
+		display: block;
+		@content;
+	}
+}
+
+/**
+ * @mixin nth-child
+ * @since 1.0.0
+ */
+ @mixin nth-child($i) {
+	&:nth-child(#{$i}) {
+		@content;
+	}
+}
+
+/**
+ * @mixin nth-child-in
+ * @since 1.0.0
+ */
+@mixin nth-child-in($a, $b) {
+	@for $i from $a through $b {
+		@include nth-child($i) {
+			@content($i);
+		}
+	}
+}
+
+/**
+ * @mixin container-content
+ * @since 1.0.0
+ */
+ @mixin container-content {
+	& > .container-body {
+		& > .container-content {
+			@content;
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+// Animations
+//------------------------------------------------------------------------------
+
+/**
+ * @mixin slide-in-present
+ * @since 1.0.0
+ */
+@mixin slide-in-present($size: 'normal') {
+
+	$enter: +100%;
+	$leave: -100%;
+
+	@if $size == 'normal' {
+		$enter: rvw(+48px);
+		$leave: rvw(-48px);
+	}
+
+	pointer-events: none;
+
+	&.enter {
+
+		opacity: 0;
+		transform: translateX($enter);
+
+		&.enter-active {
+
+			@include transition-property(opacity, transform);
+			@include transition-duration(fast);
+			@include transition-equation(fast);
+
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	&.leave {
+
+		opacity: 1;
+		transform: none;
+
+		&.leave-active {
+
+			@include transition-property(opacity, transform);
+			@include transition-duration(fast);
+			@include transition-equation(fast);
+
+			opacity: 0;
+			transform: translateX($leave);
+		}
+	}
+}
+
+/**
+ * @mixin slide-in-dismiss
+ * @since 1.0.0
+ */
+ @mixin slide-in-dismiss($size: 'normal') {
+
+	$enter: +100%;
+	$leave: -100%;
+
+	@if $size == 'normal' {
+		$enter: rvw(-48px);
+		$leave: rvw(+48px);
+	}
+
+	pointer-events: none;
+
+	&.enter {
+
+		opacity: 0;
+		transform: translate($enter);
+
+		&.enter-active {
+
+			@include transition-property(opacity, transform);
+			@include transition-duration(fast);
+			@include transition-equation(fast);
+
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	&.leave {
+
+		opacity: 1;
+		transform: none;
+
+		&.leave-active {
+
+			@include transition-property(opacity, transform);
+			@include transition-duration(fast);
+			@include transition-equation(fast);
+
+			opacity: 0;
+			transform: translateX($leave);
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+// Functions
+//------------------------------------------------------------------------------
+
+/**
+ * @function val
+ * @since 1.0.0
+ * @hidden
+ */
+@function val($name) {
+
+	@if type-of($name) == color or
+		type-of($name) == number {
+		@return $name;
+	}
+
+	@if str-index($name, "--") == 1 {
+		@return var($name);
+	}
+
+	@return var(--#{$name});
+}
+
+/**
+ * @function alpha
+ * @since 1.0.0
+ */
+@function alpha($color, $alpha) {
+	@return color-mix(in srgb, val($color) $alpha, transparent);
+}
+
+/**
+ * @function alpha
+ * @since 1.0.0
+ */
+@function darken($color, $by) {
+	@return color-mix(in srgb, val($color) (100% - $by), var(--color-gray-900) $by);
+}
+
+@function lighten($color, $by) {
+	@return color-mix(in srgb, val($color) (100% - $by), var(--color-gray-100));
+}
+
+@function mix($color, $shade, $value) {
+	@return color-mix(
+		in hsl,
+		val($color) 100% - $value,
+		var($shade)
+	);
+}
+
+
+//------------------------------------------------------------------------------
+// Private API
+//------------------------------------------------------------------------------
+
+/**
+ * @mixin set-position
+ * @since 1.0.0
+ * @hidden
+ */
+ @mixin set-position($position, $args: ()) {
+
+	$offsets: (
+		top
+		left
+		right
+		bottom
+	);
+
+	position: $position;
+
+	@each $offset in $offsets {
+
+		$index: index($args, $offset);
+
+		@if $index {
+
+			@if $index == length($args) {
+				#{$offset}: 0;
+			} @else {
+
+				$value: nth($args, $index + 1);
+
+				@if type-of($value) == number and
+					unit-of($value) == 'px' {
+					#{$offset}: rvw($value);
+				} @else if type-of($value) == string {
+					#{$offset}: $value;
+				} @else {
+					#{$offset}: $value;
+				}
+			}
+		}
+	}
+}
+
+/**
+ * @function nth-if
+ * @since 1.0.0
+ * @hidden
+ */
+ @function nth-if($list, $index) {
+
+	@if $index <= length($list) {
+		@return nth($list, $index);
+	}
+
+	@return null;
+}
