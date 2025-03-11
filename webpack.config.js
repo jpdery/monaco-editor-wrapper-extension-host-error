@@ -18,7 +18,7 @@ const Config = (env, arg) => ({
 		filename: '[name].[contenthash].js',
 		sourceMapFilename: '[name].map',
 		chunkFilename: '[name].[contenthash].js',
-		publicPath: '/'
+		publicPath: 'http://localhost:8081/'
 	},
 
 	resolve: {
@@ -109,6 +109,11 @@ const Config = (env, arg) => ({
 					return true
 				}
 			}
+		},
+
+		headers: {
+			"Cross-Origin-Opener-Policy": "same-origin",
+			"Cross-Origin-Embedder-Policy": "credentialless"
 		},
 
 		proxy: [

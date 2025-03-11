@@ -2,4 +2,16 @@
 
 .editor-screen {
 	@include fill;
+	@include flex-box;
+	@include flex-col(start, stretch);
+}
+
+.editor-screen-files {
+	@include flexible(none);
+	padding: 15px;
+}
+
+.editor-screen-editor {
+	@include relative;
+	@include flexible(both);
 }
